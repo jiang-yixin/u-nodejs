@@ -1,0 +1,31 @@
+{
+  "name": "u-nodejs",
+  "version": "0.1.0",
+  "description": "u nodejs",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jiang-yixin/u-nodejs.git"
+  },
+  "author": "Yixin Jiang",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jiang-yixin/u-nodejs/issues"
+  },
+  "homepage": "https://github.com/jiang-yixin/u-nodejs#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.3"
+  },
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "ejs": "^3.1.2",
+    "express": "^4.17.1",
+    "express-handlebars": "^4.0.4",
+    "mysql2": "^2.1.0",
+    "pug": "^2.0.4"
+  }
+}

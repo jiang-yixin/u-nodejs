@@ -1,0 +1,30 @@
+1) Arrow function:
+this. has the global access, If we want to have only the local access,
+we should use the named function: myFunction() { ... }
+
+2) Const:
+const hobbies =  ['sport', 'cooking'];
+hobbies.push('print');
+hobbies' pointer doesn't change, but the content that is pointing has changed.
+
+3) Spread operator:
+It is used to copy array. ex. const copiedArray = [...hobbies]; const copiedPerson = {...Person};
+
+4) Rest operator:
+const toArray = (...args) {
+    return args;
+}
+example: console.log(toArray(1,2,3))
+output: [1, 2, 3];
+
+5) Destructing
+const Person = {
+    name: "Simon",
+    age: "29"
+}
+const { name } = Person;
+console.log(name); // output: Simon
+const hobbies = ['sport', 'writing'];
+const [hobby1, hobby2] = hobbies;
+console.(hobby1, hobby2); // output: sport writing
+
