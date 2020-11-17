@@ -1,4 +1,5 @@
 const path = require('path');
+const fs = require('fs');
 
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -8,11 +9,15 @@ const MongoDBStore = require('connect-mongodb-session')(session);
 const csrf = require('csurf');
 const flash = require('connect-flash');
 const multer = require('multer');
+const helmet = require('helmet');
+const compression = require('compression');
+const morgan = require('morgan');
 
 const errorController = require('./controllers/error');
 const User = require('./models/user');
 
-const MONGODB_URL = 'mongodb+srv://yjiang:5HDK2vdWnsJwNri2@cluster0-3fkqz.mongodb.net/shop';
+const MONGODB_URL =
+  `mongodb+srv://${process.env.MONGODB_USER}:${process.env.MONGODB_PASSWORD}@cluster0-3fkqz.mongodb.net/${process.env.MONGODB_DATABASE}`;
 
 const app = express();
 const store = new MongoDBStore({
@@ -44,6 +49,15 @@ app.set('views', 'views');
 const adminRoutes = require('./routes/admin');
 const shopRoutes = require('./routes/shop');
 const authRoutes = require('./routes/auth');
+
+const accessLogStream = fs.createWriteStream(
+  path.join(__dirname, 'access.log'),
+  { flags: 'a' }
+);
+
+app.use(helmet());
+app.use(compression());
+app.use(morgan('combined', { stream: accessLogStream }));
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(multer({ storage: fileStorage, fileFilter: fileFilter }).single('image'));
@@ -98,7 +112,7 @@ app.use((err, req, res, next) => {
 mongoose
   .connect(MONGODB_URL)
   .then(result => {
-    app.listen(3000);
+    app.listen(process.env.PORT || 3000);
   })
   .catch(err => {
     console.log(err);
